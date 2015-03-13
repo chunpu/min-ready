@@ -1,0 +1,18 @@
+{
+  "name": "min-ready",
+  "version": "1.0.2",
+  "description": "Simple ready like jQuery(func)",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha .",
+	"readme": "pretty-readme > readme.md"
+  },
+  "author": "chunpu",
+  "license": "ISC",
+  "dependencies": {
+    "min-util": "^1.2.5"
+  },
+  "devDependencies": {
+    "mocha": "^2.2.1"
+  }
+}
