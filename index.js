@@ -36,8 +36,15 @@ function exec(val) {
 	} else if (is.arraylike(val)) {
 		var name = val[0]
 		if (is.str(name)) {
-			var fn = me[name]
-			if (is.fn(fn)) {
+			// a.b.c.d
+			var arr = name.split('.')
+			var key
+			var fn = me
+			while (arr.length) {
+				key = arr.shift()
+				fn = fn[key] || {}
+			}
+			if (is.fn(fn) && 0 == arr.length) {
 				fn.apply(me, _.slice(val, 1))
 			}
 		}

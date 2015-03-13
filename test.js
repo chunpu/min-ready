@@ -40,3 +40,23 @@ describe('basic', function() {
 		}, 40)
 	})
 })
+
+describe('suport invoke', function() {
+	it('should find the func', function() {
+		var arr = []
+		var obj = {
+			ready: Ready(),
+			a: {
+				b: {
+					c: function(val) {
+						arr.push(val)
+					}
+				}
+			}
+		}
+		obj.ready('a.b.c', 'foo')
+		assert.deepEqual([], arr)
+		obj.ready.ready()
+		assert.deepEqual(['foo'], arr)
+	})
+})
