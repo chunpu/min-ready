@@ -42,6 +42,23 @@ ready(function() {
 // => 3
 ```
 
+
+Simple Delay Execute
+---
+
+```js
+// before jquery load
+var ready = require('min-ready')()
+
+ready(function($) {
+	$('.class').html('some thing')
+})
+
+// after jquery load
+
+ready.ready($)
+```
+
 License
 ---
 

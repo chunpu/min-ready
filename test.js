@@ -41,7 +41,7 @@ describe('basic', function() {
 	})
 })
 
-describe('suport invoke', function() {
+describe('support invoke', function() {
 	it('should find the func', function() {
 		var arr = []
 		var obj = {
@@ -58,5 +58,20 @@ describe('suport invoke', function() {
 		assert.deepEqual([], arr)
 		obj.ready.ready()
 		assert.deepEqual(['foo'], arr)
+	})
+})
+
+describe('support custom context', function() {
+	it('can custom context', function(done) {
+		var ready = Ready()
+		ready(function(obj) {
+			obj.run()
+		})
+		ready.ready({
+			run: function() {
+				if (!ready.isReady) assert(false)
+				done()
+			}
+		})
 	})
 })

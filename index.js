@@ -21,8 +21,11 @@ function Ready() {
 			queue.length = 0
 		}
 	}
-	ready.ready = function() {
+	ready.ready = function(ctx) {
 		ready.isReady = true
+		if (ctx) {
+			ready.ctx = ctx
+		}
 		ready()
 	}
 	ready.queue = queue
@@ -32,7 +35,7 @@ function Ready() {
 function exec(val) {
 	var me = this
 	if (is.fn(val)) {
-		val.call(me)
+		val.call(me, me)
 	} else if (is.arraylike(val)) {
 		var name = val[0]
 		if (is.str(name)) {
