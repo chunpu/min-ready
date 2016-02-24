@@ -18,7 +18,7 @@ ready.ctx = {
 	}
 }
 
-ready.overwriteGlobalQueue(name)
+ready.overwriteQueue(name)
 
 ready.open()
 

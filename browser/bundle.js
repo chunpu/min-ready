@@ -64,7 +64,7 @@
 		}
 	}
 
-	ready.overwriteGlobalQueue(name)
+	ready.overwriteQueue(name)
 
 	ready.open()
 
@@ -135,11 +135,13 @@
 			func = _.get(ctx, first)
 		}
 		if (is.fn(func)) {
-			func.apply(ctx, _.slice(args, 1))
+			try {
+				func.apply(ctx, _.slice(args, 1))
+			} catch (ignore) {}
 		}
 	}
 
-	proto.overwriteGlobalQueue = function(name) {
+	proto.overwriteQueue = function(name) {
 		var me = this
 		global[name] = function() {
 			me.queue.apply(me, arguments)

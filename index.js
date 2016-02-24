@@ -59,7 +59,7 @@ proto.exec = function(args) {
 	}
 }
 
-proto.overwriteGlobalQueue = function(name) {
+proto.overwriteQueue = function(name) {
 	var me = this
 	global[name] = function() {
 		me.queue.apply(me, arguments)

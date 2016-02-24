@@ -89,5 +89,5 @@ funcName 是 ctx 的 属性， 值应该为一个函数(queue 的时候并不一
 	1. 否则 func 为 `_.get(ctx, args[0])`
 	1. 如果 func 为 function
 		1. 执行 func.apply(this.ctx, args.slice(1))
-1. `overwriteGlobalQueue(name)` 专门用来覆盖像 google analize 这种需求的
+1. `overwriteQueue(name)` 专门用来覆盖像 google analize 这种需求的
 	1. `global[name] = function() {this.queue.apply(this, arguments)}`

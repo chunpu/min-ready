@@ -1,6 +1,6 @@
 {
   "name": "min-ready",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Simple ready like jQuery(func)",
   "main": "index.js",
   "scripts": {
