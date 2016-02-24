@@ -2,6 +2,7 @@ var Ready = require('./')
 var assert = require('assert')
 
 describe('basic', function() {
+
 	it('should work on instance', function(done) {
 		var ready = Ready()
 		function Ctor() {}
@@ -13,65 +14,32 @@ describe('basic', function() {
 
 		Ctor.prototype.ready = ready
 		var instance = new Ctor
-	 	instance.ready('run', 'foo')
-		instance.ready.ready()
+		instance.ready.ctx = instance	
+	 	instance.ready.queue('run', 'foo')
+		instance.ready.open()
+
 	})
 
 	it('should work on basic', function(done) {
 		var ready = Ready()
 		var arr = []
-		ready(function() {
-			if (!ready.isReady) assert(false)
+		ready.queue(function() {
+			if (!ready.isOpen) assert(false)
 			arr.push(1)
 		})
-		ready(function() {
-			if (!ready.isReady) assert(false)
+		ready.queue(function() {
+			if (!ready.isOpen) assert(false)
 			arr.push(2)
 		})
 		setTimeout(function() {
 			assert.deepEqual(arr, [])
-			ready.ready()
-			ready(function() {
-				if (!ready.isReady) assert(false)
+			ready.open()
+			ready.queue(function() {
+				if (!ready.isOpen) assert(false)
 				arr.push(3)
 			})
 			assert.deepEqual(arr, [1, 2, 3])
 			done()
 		}, 40)
-	})
-})
-
-describe('support invoke', function() {
-	it('should find the func', function() {
-		var arr = []
-		var obj = {
-			ready: Ready(),
-			a: {
-				b: {
-					c: function(val) {
-						arr.push(val)
-					}
-				}
-			}
-		}
-		obj.ready('a.b.c', 'foo')
-		assert.deepEqual([], arr)
-		obj.ready.ready()
-		assert.deepEqual(['foo'], arr)
-	})
-})
-
-describe('support custom context', function() {
-	it('can custom context', function(done) {
-		var ready = Ready()
-		ready(function(obj) {
-			obj.run()
-		})
-		ready.ready({
-			run: function() {
-				if (!ready.isReady) assert(false)
-				done()
-			}
-		})
 	})
 })

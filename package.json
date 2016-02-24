@@ -1,16 +1,17 @@
 {
   "name": "min-ready",
-  "version": "1.0.6",
+  "version": "2.0.0",
   "description": "Simple ready like jQuery(func)",
   "main": "index.js",
   "scripts": {
     "test": "mocha .",
-	"readme": "pretty-readme > readme.md"
+    "readme": "pretty-readme > readme.md",
+	"browser": "webpack browser/app.js --output-file browser/bundle.js && http-server browser/"
   },
   "author": "chunpu",
   "license": "ISC",
   "dependencies": {
-    "min-util": "^1.2.5"
+    "min-util": "^1.10.1"
   },
   "devDependencies": {
     "mocha": "^2.2.1"

@@ -1,55 +1,67 @@
 var _ = require('min-util')
 var is = _.is
 
-module.exports = Ready
+var open = 1
+var close = 0
 
-function Ready() {
-	var queue = []
-	function ready(val) {
-		if (is.str(val)) {
-			return ready.call(this, arguments)
-		}
-		if (val) {
-			ready.ctx = this
-			queue.push(val)
-		}
-		if (ready.isReady) {
-			var len = queue.length
-			for (var i = 0; i < len; i++) {
-				exec.call(ready.ctx, queue[i])
-			}
-			queue.length = 0
-		}
-	}
-	ready.ready = function(ctx) {
-		ready.isReady = true
-		if (ctx) {
-			ready.ctx = ctx
-		}
-		ready()
-	}
-	ready.queue = queue
-	return ready
+module.exports = Ctor
+
+function Ctor(queueList) {
+	var me = this
+	if (!(me instanceof Ctor)) return new Ctor(queueList)
+	me.queueList = queueList || []
+	me.close()
 }
 
-function exec(val) {
+var proto = Ctor.prototype
+
+proto.queue = function() {
 	var me = this
-	if (is.fn(val)) {
-		val.call(me, me)
-	} else if (is.arraylike(val)) {
-		var name = val[0]
-		if (is.str(name)) {
-			// a.b.c.d
-			var arr = name.split('.')
-			var key
-			var fn = me
-			while (arr.length) {
-				key = arr.shift()
-				fn = fn[key] || {}
-			}
-			if (is.fn(fn) && 0 == arr.length) {
-				fn.apply(me, _.slice(val, 1))
-			}
-		}
+	var args = arguments
+	if (me.isOpen) {
+		me.exec(args)
+	} else {
+		me.queueList.push(args)
+	}
+}
+
+proto.close = function() {
+	this.isOpen = false
+}
+
+proto.open = function() {
+	this.isOpen = true
+	this.execAll()
+}
+
+proto.execAll = function() {
+	var me = this
+	var queue = me.queueList
+	_.each(queue, function(args) {
+		me.exec(args)
+	})
+	queue.length = 0
+}
+
+proto.exec = function(args) {
+	var func
+	var first = _.first(args)
+	var ctx = this.ctx
+	if (is.fn(first)) {
+		func = first
+	} else {
+		func = _.get(ctx, first)
+	}
+	if (is.fn(func)) {
+		try {
+			func.apply(ctx, _.slice(args, 1))
+		} catch (ignore) {}
+	}
+}
+
+proto.overwriteGlobalQueue = function(name) {
+	var me = this
+	global[name] = function() {
+		me.queue.apply(me, arguments)
 	}
 }

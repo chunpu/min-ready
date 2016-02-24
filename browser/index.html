@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+	<title>simple ready</title>
+</head>
+<body>
+	<h1>see in console</h1>
+</body>
+</html>
+<script>
+!function(global, doc, src, name) {
+	var queue = 'q'
+	var scriptName = 'script'
+
+	var fn = global[name] = global[name] || function() {
+		fn[queue] = fn[queue] || []
+		fn[queue].push(arguments)
+	}
+	fn.l = +new Date
+	
+	var script = doc.createElement(scriptName)
+	script.async = 1
+	script.src = src
+	var base = doc.getElementsByTagName(scriptName)[0]
+	base.parentNode.insertBefore(script, base)
+}(window, document, './bundle.js', 'lib')
+
+lib('create', 'foo', 'bar')
+lib('render', 'x')
+lib('track', 1024)
+</script>
