@@ -1,12 +1,12 @@
 {
   "name": "min-ready",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "Simple ready like jQuery(func)",
   "main": "index.js",
   "scripts": {
     "test": "mocha .",
     "readme": "pretty-readme > readme.md",
-	"browser": "webpack browser/app.js --output-file browser/bundle.js && http-server browser/"
+	"dev": "webpack browser/app.js --output-file browser/bundle.js && http-server browser/"
   },
   "author": "chunpu",
   "license": "ISC",

@@ -8,24 +8,54 @@
 </body>
 </html>
 <script>
-!function(global, doc, src, name) {
-	var queue = 'q'
-	var scriptName = 'script'
+!function(global, document, scriptName, name) {
+	name = 'lib'
+	var now = 1 * new Date()
 
-	var fn = global[name] = global[name] || function() {
-		fn[queue] = fn[queue] || []
-		fn[queue].push(arguments)
+	if (!global[name]) {
+		var o = global[name] = function() {
+			o.q.push(arguments)
+		}
+		o.q = []
+		o.l = now // 为什么是 l 我不知道..
+
+		var script = document.createElement(scriptName)
+		script.src = './bundle.js'
+		script.async = 1 // 使用 async
+		var dom = document.getElementsByTagName(scriptName)[0] // 必然有 script
+		dom.parentNode.insertBefore(script, dom)
 	}
-	fn.l = +new Date
-	
-	var script = doc.createElement(scriptName)
-	script.async = 1
-	script.src = src
-	var base = doc.getElementsByTagName(scriptName)[0]
-	base.parentNode.insertBefore(script, base)
-}(window, document, './bundle.js', 'lib')
+}(window, document, 'script');
 
 lib('create', 'foo', 'bar')
 lib('render', 'x')
 lib('track', 1024)
+
+setTimeout(function() {
+	lib('render', 2)
+}, 1000)
+</script>
+<script>
+!function(global, document, scriptName, name) {
+	name = 'lib'
+	var now = 1 * new Date()
+
+	if (!global[name]) {
+		var o = global[name] = function() {
+			o.q.push(arguments)
+		}
+		o.q = []
+		o.l = now // 为什么是 l 我不知道..
+
+		var script = document.createElement(scriptName)
+		script.src = './bundle.js'
+		script.async = 1 // 使用 async
+		var dom = document.getElementsByTagName(scriptName)[0] // 必然有 script
+		dom.parentNode.insertBefore(script, dom)
+	}
+}(window, document, 'script');
+
+setTimeout(function() {
+	lib('render', 2)
+}, 1000)
 </script>

@@ -8,12 +8,15 @@ var ret = ''
 
 ready.ctx = {
 	create: function(x, y) {
+		console.log('create', x, y)
 		ret += 'create' + x + y
 	},
 	render: function(x) {
+		console.log('render', x)
 		ret += 'render' + x
 	},
 	track: function(x) {
+		console.log('track')
 		ret += 'track' + 1024
 	}
 }
