@@ -1,6 +1,6 @@
 {
   "name": "min-ready",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Simple ready like jQuery(func)",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,7 @@
   "author": "chunpu",
   "license": "ISC",
   "dependencies": {
-    "min-util": "^1.10.1"
+    "min-util": "latest"
   },
   "devDependencies": {
     "mocha": "^2.2.1"
