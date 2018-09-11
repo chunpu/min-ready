@@ -5,6 +5,7 @@ min-ready
 [![NPM version][npm-image]][npm-url]
 [![Downloads][downloads-image]][downloads-url]
 [![Dependency Status][david-image]][david-url]
+
 [npm-image]: https://img.shields.io/npm/v/min-ready.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/min-ready
 [downloads-image]: http://img.shields.io/npm/dm/min-ready.svg?style=flat-square
@@ -29,15 +30,15 @@ Usage
 var ready = require('min-ready')()
 
 ready.queue(function() {
-	console.log(1)
+  console.log(1)
 })
 ready.queue(function() {
-	console.log(2)
+  console.log(2)
 })
 ready.open()
 // => 1, 2
 ready.queue(function() {
-	console.log(3)
+  console.log(3)
 })
 // => 3
 ```
@@ -51,8 +52,8 @@ Simple Delay Execute
 var ready = require('min-ready')()
 
 ready.queue(function() {
-	var $ = this
-	$('.class').html('some thing')
+  var $ = this
+  $('.class').html('some thing')
 })
 
 ready.queue('ajax', 'http://foo.bar.com', {success: function() {}})
